@@ -21,6 +21,17 @@ public class Main {
             System.out.println(exception);
         });
         System.out.println(test.get());
-        //test
+        
+        var producer = new KafkaProducer<String, String>(kafkaProps);
+        String s = new String("d");
+        String v = s.intern();
+
+       // producer.send(new ProducerRecord<>("test3", "first-test")).get().;
+        Future<RecordMetadata> test = producer.send(new ProducerRecord<>("test3", "first-test"), (metadata, exception) -> {
+            System.out.println(metadata.partition());
+            System.out.println(exception);
+        });
+
+        System.out.println(test.get());
     }
 }
